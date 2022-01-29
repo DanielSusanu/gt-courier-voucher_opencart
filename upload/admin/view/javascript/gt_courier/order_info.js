@@ -138,7 +138,7 @@ const App = () => {
   };
 
   const createVoucherData = () => {
-    const deliveryAddress = order.invoice_address;
+    const deliveryAddress = order.delivery_address;
 
     const voucherData = {
       p126: 2, // type
