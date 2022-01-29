@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<modification>
+  <name>GT Courier Voucher</name>
+  <code>gt_courier_voucher</code>
+  <version>3.x</version>
+  <author>DanielSusanu</author>
+  <link>https://www.danielsusanu.com</link>
+  <!-- <file path="admin/controller/sale/order.php">
+      <operation>
+      <search><![CDATA[$this->response->setOutput($this->load->view('sale/order_info']]></search>
+      <add position="before"><![CDATA[
+         $data['order_info']=$order_info;
+      ]]></add>
+      </operation>
+  </file> -->
+
+  
+  <file path="admin/view/template/sale/order_info.twig">
+      <operation>
+        <search><![CDATA[<div class="page-header">]]></search>
+        <add position="before"><![CDATA[         
+          <div id="gtCourierVoucher"></div>         
+           <script crossorigin src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
+           <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
+           <script crossorigin src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+           <script type="text/babel" src="view/javascript/gt_courier/order_info.js"></script> 
+        ]]></add>
+      </operation>      
+  </file>
+
+  <file path="admin/view/template/sale/order_info.twig">
+      <operation>
+        <search><![CDATA[<a href="{{ invoice }}" target="_blank" data-toggle="tooltip" title="{{ button_invoice_print }}"]]></search>
+        <add position="before"><![CDATA[         
+         <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#gtCourierVoucherModal">GT Courier Voucher</a>   
+        ]]></add>
+      </operation>   
+      <operation>
+        <search><![CDATA[$('#button-history').on('click', function() {]]></search>
+        <add position="before"><![CDATA[         
+         var gt_api_token="{{ api_token }}";
+        ]]></add>
+      </operation>      
+  </file>
+</modification>
