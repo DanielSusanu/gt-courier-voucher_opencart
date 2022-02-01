@@ -19,8 +19,8 @@ const additionalChargesData = [
 const COD_METHOD_NAMES = [
   'cash on delivery',
   'cod',
-  'Αντικαταβολή',
-  'Αντικαταβολη',
+  'αντικαταβολή',
+  'αντικαταβολη',
 ];
 const urlSearchParams = new URLSearchParams(window.location.search);
 //route=extension/module/gt_courier/save_settings
