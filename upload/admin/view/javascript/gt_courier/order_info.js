@@ -16,7 +16,12 @@ const additionalChargesData = [
     text: 'ΠΑΡΑΔΟΣΗ RECEPTION',
   },
 ];
-const COD_METHOD_NAMES = ['cash on delivery', 'cod'];
+const COD_METHOD_NAMES = [
+  'cash on delivery',
+  'cod',
+  'Αντικαταβολή',
+  'Αντικαταβολη',
+];
 const urlSearchParams = new URLSearchParams(window.location.search);
 //route=extension/module/gt_courier/save_settings
 const gtCourierModuleRoute = 'extension/module/gt_courier';
@@ -36,9 +41,10 @@ const App = () => {
   const [isCOD, setIsCOD] = useState(false);
   const [additionalCharges, setAdditionlCharges] = useState([]);
   const [orderNotes, setOrderNotes] = useState('');
-  const [voucher, setVoucher] = useState(false);
+  const [voucher, setVoucher] = useState('');
   const [voucherUrl, setVoucherUrl] = useState(false);
   const [disabled, setDisabled] = useState(false);
+  const [openVoucherOnNewTab, setOpenVoucherOnNewTab] = useState(false);
 
   const orderTotal = parseFloat(order.total).toFixed(2);
 
@@ -57,6 +63,7 @@ const App = () => {
       setAlerts([{ text: response.msg, type: 'alert-danger' }, ...alerts]);
       return;
     }
+
     if (response.data.voucher) {
       setVoucher(response.data.voucher);
     }
@@ -97,9 +104,7 @@ const App = () => {
       //voucherResponse.data.nr01,
       voucherResponse.sid
     );
-
-    setVoucherUrl(voucherUrl);
-    openVoucherPfg(voucherUrl);
+    if (openVoucherOnNewTab) openVoucherPfg(voucherUrl);
     await saveOrderGTVoucher(voucherResponse.data.p01);
   };
 
@@ -122,6 +127,9 @@ const App = () => {
 
     var voucherUrlParams = new URLSearchParams(voucherUrlParamsObj).toString();
     voucherUrl += '?' + voucherUrlParams;
+
+    setVoucher(voucher);
+    setVoucherUrl(voucherUrl);
 
     return voucherUrl;
   };
@@ -199,7 +207,6 @@ const App = () => {
 
     const session = response.sid;
     const pdfUrl = createVoucherPdfUrl(voucher, session);
-    setVoucherUrl(pdfUrl);
     openVoucherPfg(pdfUrl);
     setLoading(false);
   };
@@ -280,8 +287,24 @@ const App = () => {
       </div>
 
       <div className='form-group'>
+        <label>Άνοιγμα voucher σε νέα καρτέλα κατά την δημιουργία</label>
+        <div className='checkbox'>
+          <label>
+            <input
+              type='checkbox'
+              checked={openVoucherOnNewTab}
+              onChange={(e) =>
+                setOpenVoucherOnNewTab((prevState) => !prevState)
+              }
+            />{' '}
+            ({openVoucherOnNewTab ? 'Ναι' : 'Οχι'})
+          </label>
+        </div>
+      </div>
+
+      <div className='form-group'>
         <label for='gt_order_comments'>Υπάρχων Voucher</label>
-        {voucher && <input value={voucher} className='form-control' readonly />}
+        <input value={voucher} className='form-control' readonly />
       </div>
     </Modal>
   );

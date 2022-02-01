@@ -30,9 +30,11 @@
 
   <file path="admin/view/template/sale/order_info.twig">
       <operation>
-        <search><![CDATA[<a href="{{ invoice }}" target="_blank" data-toggle="tooltip" title="{{ button_invoice_print }}"]]></search>
-        <add position="before"><![CDATA[         
-         <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#gtCourierVoucherModal">GT Courier Voucher</a>   
+        <search><![CDATA[<h1>{{ heading_title }}</h1>]]></search>
+        <add position="before"><![CDATA[      
+         <div class="pull-right" style="margin-right:5px;">   
+           <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#gtCourierVoucherModal">GT Courier Voucher</a>   
+         </div>
         ]]></add>
       </operation>   
       <operation>
