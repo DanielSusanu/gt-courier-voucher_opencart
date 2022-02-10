@@ -34,6 +34,18 @@ const isPaymentMethodCOD = (str) => {
   return COD_METHOD_NAMES.includes(str.toLowerCase());
 };
 
+function getGtCourierOrderStatusId() {
+  const options = $('#input-order-status').find('option');
+  let gtCourierStatusId = -1;
+  options.each(function () {
+    const text = $(this).text();
+    const value = $(this).val();
+    if (text == 'GT Courier Voucher') gtCourierStatusId = value;
+    return;
+  });
+  return gtCourierStatusId;
+}
+
 const App = () => {
   const [order, setOrder] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -177,7 +189,7 @@ const App = () => {
     const url = `${window.location.origin}${pathname}?route=${orderHistoryRoute}&api_token=${gt_api_token}&store_id=${order.store_id}&order_id=${orderId}`;
 
     const status = {
-      order_status_id: 18,
+      order_status_id: getGtCourierOrderStatusId(),
       notify: 0,
       override: 0,
       append: 0,
