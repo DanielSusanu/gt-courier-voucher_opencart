@@ -4,15 +4,7 @@
   <code>gt_courier_voucher</code>
   <version>3.x</version>
   <author>DanielSusanu</author>
-  <link>https://www.danielsusanu.com</link>
-  <!-- <file path="admin/controller/sale/order.php">
-      <operation>
-      <search><![CDATA[$this->response->setOutput($this->load->view('sale/order_info']]></search>
-      <add position="before"><![CDATA[
-         $data['order_info']=$order_info;
-      ]]></add>
-      </operation>
-  </file> -->
+  <link>https://www.danielsusanu.com</link> 
 
   
   <file path="admin/view/template/sale/order_info.twig">
