@@ -188,13 +188,18 @@ const App = () => {
     const pathname = window.location.pathname.replace('admin/', '');
     const url = `${window.location.origin}${pathname}?route=${orderHistoryRoute}&api_token=${gt_api_token}&store_id=${order.store_id}&order_id=${orderId}`;
 
+    const statusId = getGtCourierOrderStatusId();
     const status = {
-      order_status_id: getGtCourierOrderStatusId(),
+      order_status_id: statusId,
       notify: 0,
       override: 0,
       append: 0,
       comment: voucher,
     };
+
+    if (statusId === -1) {
+      return;
+    }
 
     await fetch(url, {
       method: 'POST',
